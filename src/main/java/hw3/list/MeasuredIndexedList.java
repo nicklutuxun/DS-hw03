@@ -10,7 +10,10 @@ import exceptions.IndexException;
  */
 public class MeasuredIndexedList<T> extends ArrayIndexedList<T>
     implements Measured<T> {
-
+  
+  private int access;
+  private int mutation;
+  
   /**
    * Constructor for a MeasuredIndexedList.
    *
@@ -19,7 +22,8 @@ public class MeasuredIndexedList<T> extends ArrayIndexedList<T>
    */
   public MeasuredIndexedList(int size, T defaultValue) {
     super(size, defaultValue);
-    // TODO: Implement me
+    this.access = 0;
+    this.mutation = 0;
   }
 
   @Override
@@ -29,33 +33,41 @@ public class MeasuredIndexedList<T> extends ArrayIndexedList<T>
 
   @Override
   public T get(int index) throws IndexException {
-    // TODO: Implement me
-    return null;
+    T value = super.get(index);
+    this.access++;
+    return value;
   }
 
   @Override
   public void put(int index, T value) throws IndexException {
-    // TODO: Implement me
+    super.put(index, value);
+    this.mutation++;
   }
 
   @Override
   public void reset() {
-    // TODO: Implement me
+    this.access = 0;
+    this.mutation = 0;
   }
 
   @Override
   public int accesses() {
-    return 0; // TODO: Implement me
+    return access;
   }
 
   @Override
   public int mutations() {
-    return 0; // TODO: Implement me
+    return mutation;
   }
 
   @Override
   public int count(T value) {
-    return 0; // TODO: Implement me
+    int count = 0;
+    for (int i = 0; i < this.length(); i++) {
+      if (this.get(i).equals(value)) {
+        count++;
+      }
+    }
+    return count;
   }
-
 }
