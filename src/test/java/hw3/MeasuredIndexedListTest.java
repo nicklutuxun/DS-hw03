@@ -1,5 +1,6 @@
 package hw3;
 
+import exceptions.IndexException;
 import hw3.list.MeasuredIndexedList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,6 +31,22 @@ public class MeasuredIndexedListTest {
   void zeroWritesStart() {
     assertEquals(0, measuredIndexedList.mutations());
   }
-
-  // TODO Add more tests
+  
+  @Test
+  @DisplayName("Get() doesn't increment access if IndexException is thrown")
+  void GetDoesNotChangeAccessIfIndexException() {
+    try {
+      int value = measuredIndexedList.get(16);
+    } catch (IndexException ex) {
+    
+    }
+    assertEquals(0, measuredIndexedList.accesses());
+  }
+  
+  @Test
+  @DisplayName("Count() correctly increments access")
+  void CountCorrectlyIncrementAccess() {
+    assertEquals(LENGTH, measuredIndexedList.count(DEFAULT_VALUE));
+    assertEquals(LENGTH, measuredIndexedList.accesses());
+  }
 }
