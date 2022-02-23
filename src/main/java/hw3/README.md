@@ -11,10 +11,17 @@
 
 1. **Explain the mistake in the setup/implementation of the experiment is set up and implemented which resulted in a discrepancy between the results and what is expected from each sorting algorithm.**
 
+`readData()` in `SortingAlgorithmDriver` stores content of data files as a list of Strings. This makes `compareTo()` 
+in helper `less()` compare two Strings. `compareTo()` compares Strings lexicographically, for example, `"10".compareTo("9") < 0`. This is not what we
+intend to have after sorting.
 
+In addition, in file `descending.data`, some numbers 
+ 
 
 2. **Does the actual running time correspond to the asymptotic complexity as you would expect?**
-
+   
+Sorting over the ascending data is the best-case scenario, and should have zero mutation count.
+Sorting over the descending data is the worst-case scenario, and should hav
 
 
 3. **What explains the practical differences between these algorithms? (Theoretically, the algorithm runs in O(X) time, where X is a function of the input size, but in practice (i.e running it on datasets), you may observe that it is slower/faster compared to the other algorithms)**
