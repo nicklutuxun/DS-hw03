@@ -34,7 +34,7 @@ To check the time complexity of algorithms, I run each algorithm with different 
 | `Bubble`    | 0.001571 | 0.005547 | 0.009721 | 0.013692 | 0.049715 | 0.196066 |
 | `Insertion` | 0.000391 | 0.009940 | 0.009741 | 0.016389 | 0.058313 | 0.160022 |
 
-![My Image](/Users/nicklu/Documents/Git/DS/Hw/DS-hw03/src/main/resources/graph.png)
+![My Image](../../resources/graph.png)
 
 3. **What explains the practical differences between these algorithms? (Theoretically, the algorithm runs in O(X) time, where X is a function of the input size, but in practice (i.e running it on datasets), you may observe that it is slower/faster compared to the other algorithms)**
 
