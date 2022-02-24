@@ -27,12 +27,14 @@ not strictly descending.
 To check the time complexity of algorithms, I run each algorithm with different input size, I choose
 `descending.data` because it simulates the worst-case scenario:
 
+<center>
 | Size        | 100      | 500      | 1000     | 2000     | 4000     | 8000     |
 |-------------|----------|----------|----------|----------|----------|----------|
 | `Gnome`     | 0.007479 | 0.008003 | 0.014151 | 0.036708 | 0.124228 | 0.150571 |
 | `Selection` | 0.000595 | 0.005128 | 0.004413 | 0.011103 | 0.038343 | 0.056238 |
 | `Bubble`    | 0.001571 | 0.005547 | 0.009721 | 0.013692 | 0.049715 | 0.076911 |
 | `Insertion` | 0.000391 | 0.009940 | 0.009741 | 0.016389 | 0.058313 | 0.069070 |
+</center>>
 
 3. **What explains the practical differences between these algorithms? (Theoretically, the algorithm runs in O(X) time, where X is a function of the input size, but in practice (i.e running it on datasets), you may observe that it is slower/faster compared to the other algorithms)**
 
