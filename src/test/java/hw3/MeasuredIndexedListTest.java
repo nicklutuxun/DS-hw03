@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class MeasuredIndexedListTest {
 
@@ -37,10 +38,23 @@ public class MeasuredIndexedListTest {
   void GetDoesNotChangeAccessIfIndexException() {
     try {
       int value = measuredIndexedList.get(16);
+      fail("Test failed!");
     } catch (IndexException ex) {
-    
+      System.out.println("Test Passed!");
     }
     assertEquals(0, measuredIndexedList.accesses());
+  }
+  
+  @Test
+  @DisplayName("Put() doesn't increment access if IndexException is thrown")
+  void PutDoesNotChangeAccessIfIndexException() {
+    try {
+      measuredIndexedList.put(16, 1);
+      fail("Test failed!");
+    } catch (IndexException ex) {
+      System.out.println("Test Passed!");
+    }
+    assertEquals(0, measuredIndexedList.mutations());
   }
   
   @Test
@@ -49,4 +63,38 @@ public class MeasuredIndexedListTest {
     assertEquals(LENGTH, measuredIndexedList.count(DEFAULT_VALUE));
     assertEquals(LENGTH, measuredIndexedList.accesses());
   }
+  
+  @Test
+  @DisplayName("accesses() is correct after list traversed")
+  void AccessesIsCorrectAfterListTraverse() {
+    for (int i = 0; i < LENGTH; i++) {
+      measuredIndexedList.get(i);
+    }
+    assertEquals(LENGTH, measuredIndexedList.accesses());
+  }
+  
+  @Test
+  @DisplayName("mutations() is correct after list traversed")
+  void MutationsIsCorrectAfterListTraverse() {
+    for (int i = 0; i < LENGTH; i++) {
+      measuredIndexedList.put(i, 4);
+    }
+    assertEquals(LENGTH, measuredIndexedList.mutations());
+  }
+  
+  @Test
+  @DisplayName("reset() correctly reset after list modification")
+  void ResetIsCorrectAfterListModification() {
+    for (int i = 0; i < LENGTH; i++) {
+      measuredIndexedList.put(i, i);
+    }
+    for (int i = 0; i < LENGTH; i++) {
+      measuredIndexedList.get(i);
+    }
+    
+    measuredIndexedList.reset();
+    assertEquals(0, measuredIndexedList.accesses());
+    assertEquals(0, measuredIndexedList.mutations());
+  }
+  
 }
