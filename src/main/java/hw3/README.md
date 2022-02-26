@@ -63,9 +63,48 @@ algorithms.
 and insert it into corresponding position. When `Selection Sort` sorts `ascending.data` that is already sorted, it behaves slower than other 3 algorithms, 
 since it still needs to find the minimum element for every iteration although the data is already sorted.  
 
-`Bubble Sort` depends on the kind of data. 
+When sorting ascending data, `Bubble sort` and `Insertion sort` are faster. This is because less swap will be done.
+
+When sorting descending data, `Bubble sort` takes more time than the other two algorithms mainly because it does more swaps.
+`Bubble sort` needs to swap the largest element in the list to the tail in every traverse. The total number of mutations is 2*(n(n-1)/2), which is way more 
+than `Selection sort` and `Insertion sort` which only put elements into the right position.
+
+The result aligns with my reasoning, this is the output of size 4000:
+
+|    Data file    |   Algorithm    | Sorted? |   Accesses |  Mutations | Seconds  |
+|:---------------:|:--------------:|:-------:|-----------:|-----------:|:--------:|
+| ascending.data  |   Null Sort    |  false  |          0 |          0 | 0.000003 |
+| ascending.data  |   Gnome Sort   |  true   | 15,230,058 |  5,074,020 | 0.061871 |
+| ascending.data  | Selection Sort |  true   | 16,003,980 |      7,980 | 0.049949 |
+| ascending.data  |  Bubble Sort   |  true   | 12,055,014 |  5,074,020 | 0.036392 |
+| ascending.data  | Insertion Sort |  true   |  5,082,018 |  2,541,009 | 0.022698 |
+|                 |                |         |            |            |          |
+| descending.data |   Null Sort    |  false  |          0 |          0 | 0.000003 |
+| descending.data |   Gnome Sort   |  true   | 47,988,000 | 15,996,000 | 0.101257 |
+| descending.data | Selection Sort |  true   | 16,000,000 |      4,000 | 0.042060 |
+| descending.data |  Bubble Sort   |  true   | 31,992,000 | 15,996,000 | 0.049719 |
+| descending.data | Insertion Sort |  true   | 15,999,999 |  8,001,999 | 0.049265 |
+
+We can observe that in sorting descending data, `Bubble sort` has much more mutations and accesses than
+`Insertion sort` and `Selection sort`. Also, `Selection sort` does not differ much between different kind of data, while other 
+algorithms are slower when sorting descending data than ascending data.
 
 ## PART III: ANALYSIS OF SELECTION SORT
 
-1. Determine exactly how many comparisons C(n) and assignments A(n) are performed by this implementation of selection sort in the worst case. Both of those should be polynomials of degree 2 since you know that the asymptotic complexity of selection sort is O(n^2).
+1. **Determine exactly how many comparisons C(n) and assignments A(n) are performed by this implementation of selection sort in the worst case. Both of those should be polynomials of degree 2 since you know that the asymptotic complexity of selection sort is O(n^2).**
 
+The worst case is when sorting a strictly descending dataset. The code for `Selection sort` is as follows:
+```java
+for (int i = 0; i < list.length() - 1; i++) {  // A(n)=1+(n-1) C(n)=n 
+  int min = i;  // A(n)=n-1 
+  for (int j = i + 1; j < list.length(); j++) {  // A(n)=sum((n-1),n,...,1)+(n-1) C(n)=sum((n-1),n,...,1)+(n-1)
+    if (list[j]) < min) { // C(n)=sum((n-1),n,...,1)
+      min = j;  // A(n)=sum((n-1),n,...,1)
+    }
+  }
+  swap(list[min], list[i]); // A(n)= 3*(n-1)
+}
+```
+The total number of A(n)=1+(n-1)+(n-1)+sum((n-1),n,...,1)+(n-1)+sum((n-1),n,...,1)+3*(n-1)=n^2+n-1
+
+The total number of C(n)=n+sum((n-1),n,...,1)+(n-1)+sum((n-1),n,...,1)=n^2+n-1
