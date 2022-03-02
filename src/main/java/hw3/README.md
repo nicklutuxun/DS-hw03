@@ -94,9 +94,9 @@ The worst case is when sorting a strictly descending dataset. The code for `Sele
 ```java
 for (int i = 0; i < list.length() - 1; i++) {  // A(n)=1+(n-1) C(n)=n 
   int min = i;  // A(n)=n-1 
-  for (int j = i + 1; j < list.length(); j++) {  // A(n)=sum((n-1),n,...,1)+(n-1) C(n)=sum((n-1),n,...,1)+(n-1)
-    if (list[j]) < min) { // C(n)=sum((n-1),n,...,1)
-      min = j;  // A(n)=sum((n-1),n,...,1)
+  for (int j = i + 1; j < list.length(); j++) {  // A(n)=sum((n-1),(n-2),...,1)+(n-1) C(n)=sum((n-1),(n-2),...,1)+(n-1)
+    if (list[j]) < min) { // C(n)=sum((n-1),(n-2),...,1)
+      min = j;  // A(n)=sum((n-1),(n-2),...,1)
     }
   }
   swap(list[min], list[i]); // A(n)= 3*(n-1)
